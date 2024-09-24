@@ -1,10 +1,10 @@
+import Header from "./components/Header";
+
 function App() {
 
   return (
     <>
-      <header>
-        <img src="../src/assets/Logo.svg" alt="Logo" class="logo" />
-      </header>
+      <Header/>
       <main>
         <section class="tasks">
           <div class="tasks__header">
