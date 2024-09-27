@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import CloseButton from "../assets/Close.svg";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   return (
-    <section className="sidebar">
+    <section className={`sidebar ${isOpen ? "open" : ""}`}>
       <div className="sidebar__content">
-        <button className="sidebar__close-button">
-          <img src="./assets/Close.svg" alt="Fechar" />
+        <button className="sidebar__close-button" onClick={onClose}>
+          <img src={CloseButton} alt="Fechar" />
         </button>
         <div className="sidebar__header">
           <span className="sidebar__action"></span>
@@ -26,7 +27,11 @@ const Sidebar = () => {
             <button type="submit" className="form__save-button">
               Salvar tarefa
             </button>
-            <button type="button" className="form__close-button">
+            <button
+              type="button"
+              className="form__close-button"
+              onClick={onClose}
+            >
               Fechar
             </button>
           </div>
@@ -34,6 +39,6 @@ const Sidebar = () => {
       </div>
     </section>
   );
-}
+};
 
-export default Sidebar
+export default Sidebar;

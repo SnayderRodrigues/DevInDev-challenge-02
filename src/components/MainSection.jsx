@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import SavedTaskAnimation from "./SavedTaskAnimation";
 import DropShadow from "./DropShadow";
 
 const MainSection = () => {
+  const [OpenSidebar, setOpenSidebar] = useState(false);
+
+  const handleOpenSidebar = () => {
+    setOpenSidebar(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setOpenSidebar(false);
+  };
+
   return (
     <main>
       <section className="tasks">
@@ -15,7 +25,7 @@ const MainSection = () => {
           <span>Não se preocupe, suas novas tarefas irão aparecer aqui.</span>
         </div>
         <div className="tasks__content"></div>
-        <button className="tasks__button">
+        <button className="tasks__button" onClick={handleOpenSidebar}>
           <svg
             width="25"
             height="25"
@@ -41,9 +51,9 @@ const MainSection = () => {
           Adicionar tarefas
         </button>
       </section>
-      <Sidebar />
+      <Sidebar isOpen={OpenSidebar} onClose={handleCloseSidebar} />
       <SavedTaskAnimation />
-      <DropShadow />
+      <DropShadow isOpen={OpenSidebar} />
     </main>
   );
 };
