@@ -1,7 +1,7 @@
 import React from "react";
 import CloseButton from "../assets/Close.svg";
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, onClose, taskAction }) => {
   return (
     <section className={`sidebar ${isOpen ? "open" : ""}`}>
       <div className="sidebar__content">
@@ -9,7 +9,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <img src={CloseButton} alt="Fechar" />
         </button>
         <div className="sidebar__header">
-          <span className="sidebar__action"></span>
+          <span className="sidebar__action">{taskAction}</span>
           <span id="taskTitle"></span>
         </div>
         <form className="sidebar__form">

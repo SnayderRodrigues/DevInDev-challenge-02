@@ -5,9 +5,11 @@ import DropShadow from "./DropShadow";
 
 const MainSection = () => {
   const [OpenSidebar, setOpenSidebar] = useState(false);
+  const [taskAction, setTaskAction] = useState("");
 
   const handleOpenSidebar = () => {
     setOpenSidebar(true);
+    setTaskAction("Criar nova tarefa");
   };
 
   const handleCloseSidebar = () => {
@@ -51,9 +53,13 @@ const MainSection = () => {
           Adicionar tarefas
         </button>
       </section>
-      <Sidebar isOpen={OpenSidebar} onClose={handleCloseSidebar} />
+      <Sidebar
+        isOpen={OpenSidebar}
+        taskAction={taskAction}
+        onClose={handleCloseSidebar}
+      />
       <SavedTaskAnimation />
-      <DropShadow isOpen={OpenSidebar} />
+      <DropShadow isOpen={OpenSidebar} onClose={handleCloseSidebar} />
     </main>
   );
 };
