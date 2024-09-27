@@ -11,6 +11,7 @@ const MainSection = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [taskAction, setTaskAction] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [checkedTasks, setCheckedTasks] = useState([]);
 
   const handleOpenSidebar = () => {
     setOpenSidebar(true);
@@ -24,6 +25,16 @@ const MainSection = () => {
   const handleSaveTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
     handleCloseSidebar();
+  };
+
+  const toggleCheckTask = (index) => {
+    setCheckedTasks((prevCheckedTasks) => {
+      if (prevCheckedTasks.includes(index)) {
+        return prevCheckedTasks.filter((taskIndex) => taskIndex !== index);
+      } else {
+        return [...prevCheckedTasks, index];
+      }
+    });
   };
 
   return (
@@ -41,7 +52,12 @@ const MainSection = () => {
           <div className="tasks__content">
             {tasks.map((task, index) => (
               <div className="tasks__item" key={index}>
-                <div className="tasks__item-header">
+                <div
+                  className={`tasks__item-header ${
+                    checkedTasks.includes(index) ? "check" : ""
+                  }`}
+                  onClick={() => toggleCheckTask(index)}
+                >
                   <button className="tasks__item-checkbox">
                     <img src={CheckboxSquare} alt="" />
                     <img src={CheckedSquare} alt="" />
