@@ -11,7 +11,6 @@ const MainSection = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [taskAction, setTaskAction] = useState("");
   const [tasks, setTasks] = useState([]);
-  const [checkedTasks, setCheckedTasks] = useState([]);
 
   const handleOpenSidebar = () => {
     setOpenSidebar(true);
@@ -23,18 +22,17 @@ const MainSection = () => {
   };
 
   const handleSaveTask = (newTask) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    const taskWithCheck = { ...newTask, checked: false };
+    setTasks((prevTasks) => [...prevTasks, taskWithCheck]);
     handleCloseSidebar();
   };
 
   const toggleCheckTask = (index) => {
-    setCheckedTasks((prevCheckedTasks) => {
-      if (prevCheckedTasks.includes(index)) {
-        return prevCheckedTasks.filter((taskIndex) => taskIndex !== index);
-      } else {
-        return [...prevCheckedTasks, index];
-      }
-    });
+    setTasks((prevTasks) =>
+      prevTasks.map((task, taskIndex) =>
+        taskIndex === index ? { ...task, checked: !task.checked } : task
+      )
+    );
   };
 
   const handleDeleteTask = (index) => {
@@ -60,13 +58,15 @@ const MainSection = () => {
               <div className="tasks__item" key={index}>
                 <div
                   className={`tasks__item-header ${
-                    checkedTasks.includes(index) ? "check" : ""
+                    task.checked ? "check" : ""
                   }`}
                   onClick={() => toggleCheckTask(index)}
                 >
                   <button className="tasks__item-checkbox">
-                    <img src={CheckboxSquare} alt="" />
-                    <img src={CheckedSquare} alt="" />
+                    <img
+                      src={task.checked ? CheckedSquare : CheckboxSquare}
+                      alt={task.checked ? "Concluída" : "Não Concluída"}
+                    />
                   </button>
                   <div className="tasks__item-info">
                     <h3>{task.name}</h3>
