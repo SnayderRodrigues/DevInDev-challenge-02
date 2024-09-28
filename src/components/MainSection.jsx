@@ -37,6 +37,12 @@ const MainSection = () => {
     });
   };
 
+  const handleDeleteTask = (index) => {
+    setTasks((prevTasks) =>
+      prevTasks.filter((_, taskIndex) => taskIndex !== index)
+    );
+  };
+
   return (
     <main>
       <section className="tasks">
@@ -70,7 +76,11 @@ const MainSection = () => {
                 <button type="button" className="tasks__item-edit-button">
                   <img src={EditButton} alt="Editar" />
                 </button>
-                <button type="button" className="tasks__item-delete-button">
+                <button
+                  type="button"
+                  className="tasks__item-delete-button"
+                  onClick={() => handleDeleteTask(index)}
+                >
                   <img src={DeleteButton} alt="Deletar" />
                 </button>
               </div>
