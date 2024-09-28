@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import SavedTaskAnimation from "./SavedTaskAnimation";
 import DropShadow from "./DropShadow";
-import CheckboxSquare from "../assets/Square.svg";
-import CheckedSquare from "../assets/SquareChecked.svg";
-import EditButton from "../assets/Edit.svg";
-import DeleteButton from "../assets/Trash.svg";
+import TaskItem from "./TaskItem";
 
 const MainSection = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -55,35 +52,13 @@ const MainSection = () => {
         ) : (
           <div className="tasks__content">
             {tasks.map((task, index) => (
-              <div className="tasks__item" key={index}>
-                <div
-                  className={`tasks__item-header ${
-                    task.checked ? "check" : ""
-                  }`}
-                  onClick={() => toggleCheckTask(index)}
-                >
-                  <button className="tasks__item-checkbox">
-                    <img
-                      src={task.checked ? CheckedSquare : CheckboxSquare}
-                      alt={task.checked ? "Concluída" : "Não Concluída"}
-                    />
-                  </button>
-                  <div className="tasks__item-info">
-                    <h3>{task.name}</h3>
-                    <p>{task.description}</p>
-                  </div>
-                </div>
-                <button type="button" className="tasks__item-edit-button">
-                  <img src={EditButton} alt="Editar" />
-                </button>
-                <button
-                  type="button"
-                  className="tasks__item-delete-button"
-                  onClick={() => handleDeleteTask(index)}
-                >
-                  <img src={DeleteButton} alt="Deletar" />
-                </button>
-              </div>
+              <TaskItem
+                key={index}
+                task={task}
+                index={index}
+                onCheck={toggleCheckTask}
+                onDelete={handleDeleteTask}
+              />
             ))}
           </div>
         )}
