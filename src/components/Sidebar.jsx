@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CloseButton from "../assets/Close.svg";
 
-const Sidebar = ({ isOpen, onClose, taskAction, onSaveTask }) => {
+const Sidebar = ({ isOpen, onClose, taskAction, onSaveTask, editingTask }) => {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
+
+  useEffect(() => {
+    if (editingTask) {
+      setTaskName(editingTask.name);
+      setTaskDescription(editingTask.description);
+    } else {
+      setTaskName("");
+      setTaskDescription("");
+    }
+  }, [editingTask]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,9 +24,6 @@ const Sidebar = ({ isOpen, onClose, taskAction, onSaveTask }) => {
     };
 
     onSaveTask(newTask);
-
-    setTaskName("");
-    setTaskDescription("");
   };
 
   return (
@@ -27,7 +34,6 @@ const Sidebar = ({ isOpen, onClose, taskAction, onSaveTask }) => {
         </button>
         <div className="sidebar__header">
           <span className="sidebar__action">{taskAction}</span>
-          <span id="taskTitle"></span>
         </div>
         <form className="sidebar__form" onSubmit={handleSubmit}>
           <div>

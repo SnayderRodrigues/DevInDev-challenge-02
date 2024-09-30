@@ -4,7 +4,7 @@ import CheckedSquare from "../assets/SquareChecked.svg";
 import EditButton from "../assets/Edit.svg";
 import DeleteButton from "../assets/Trash.svg";
 
-const TaskItem = ({ task, index, onCheck, onDelete }) => {
+const TaskItem = ({ task, index, onCheck, onEdit, onDelete }) => {
   return (
     <div className="tasks__item">
       <div
@@ -26,7 +26,7 @@ const TaskItem = ({ task, index, onCheck, onDelete }) => {
           <p>{task.description}</p>
         </div>
       </div>
-      <button type="button" className="tasks__item-edit-button">
+      <button type="button" className="tasks__item-edit-button" onClick={() => onEdit(index)}>
         <img src={EditButton} alt="Editar" />
       </button>
       <button

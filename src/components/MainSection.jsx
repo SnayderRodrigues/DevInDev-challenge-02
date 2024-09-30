@@ -8,20 +8,36 @@ const MainSection = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [taskAction, setTaskAction] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [editingTaskIndex, setEditingTaskIndex] = useState(null);
 
   const handleOpenSidebar = () => {
     setOpenSidebar(true);
     setTaskAction("Criar nova tarefa");
+    setEditingTaskIndex(null);
+  };
+
+  const handleEditTask = (index) => {
+    setOpenSidebar(true);
+    setTaskAction("Editar");
+    setEditingTaskIndex(index);
+  };
+
+  const handleSaveTask = (newTask) => {
+    if (editingTaskIndex !== null) {
+      setTasks((prevTasks) =>
+        prevTasks.map((task, index) =>
+          index === editingTaskIndex ? { ...task, ...newTask } : task
+        )
+      );
+    } else {
+      const taskWithCheck = { ...newTask, checked: false };
+      setTasks((prevTasks) => [...prevTasks, taskWithCheck]);
+    }
+    handleCloseSidebar();
   };
 
   const handleCloseSidebar = () => {
     setOpenSidebar(false);
-  };
-
-  const handleSaveTask = (newTask) => {
-    const taskWithCheck = { ...newTask, checked: false };
-    setTasks((prevTasks) => [...prevTasks, taskWithCheck]);
-    handleCloseSidebar();
   };
 
   const toggleCheckTask = (index) => {
@@ -57,6 +73,7 @@ const MainSection = () => {
                 task={task}
                 index={index}
                 onCheck={toggleCheckTask}
+                onEdit={handleEditTask}
                 onDelete={handleDeleteTask}
               />
             ))}
@@ -91,6 +108,7 @@ const MainSection = () => {
       <Sidebar
         isOpen={openSidebar}
         taskAction={taskAction}
+        editingTask={editingTaskIndex !== null ? tasks[editingTaskIndex] : null}
         onClose={handleCloseSidebar}
         onSaveTask={handleSaveTask}
       />
