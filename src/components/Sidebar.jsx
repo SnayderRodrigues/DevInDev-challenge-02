@@ -9,8 +9,8 @@ const Sidebar = ({ isOpen, onClose, taskAction, onSaveTask }) => {
     e.preventDefault();
 
     const newTask = {
-      name: taskName,
-      description: taskDescription,
+      name: taskName.trim(),
+      description: taskDescription.trim(),
     };
 
     onSaveTask(newTask);

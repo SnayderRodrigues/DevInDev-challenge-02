@@ -234,15 +234,12 @@ textarea:focus-visible {
 .tasks__item-info {
   display: flex;
   flex-direction: column;
+  gap: 0rem;
   padding-left: 1rem;
 }
 
 .tasks__item-info.has-description {
   gap: 0.25rem;
-}
-
-.tasks__item-info.no-description {
-  gap: 0rem;
 }
 
 .tasks__item-header.check > .tasks__item-info > * {
@@ -273,6 +270,8 @@ textarea:focus-visible {
 
 .tasks__item-edit-button,
 .tasks__item-delete-button {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 

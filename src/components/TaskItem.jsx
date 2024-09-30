@@ -17,7 +17,11 @@ const TaskItem = ({ task, index, onCheck, onDelete }) => {
             alt={task.checked ? "Concluída" : "Não Concluída"}
           />
         </button>
-        <div className="tasks__item-info">
+        <div
+          className={`tasks__item-info ${
+            task.description ? "has-description" : ""
+          }`}
+        >
           <h3>{task.name}</h3>
           <p>{task.description}</p>
         </div>
