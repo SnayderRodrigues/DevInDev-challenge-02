@@ -6,14 +6,14 @@ const Sidebar = ({ isOpen, onClose, taskAction, onSaveTask, editingTask }) => {
   const [taskDescription, setTaskDescription] = useState("");
 
   useEffect(() => {
-    if (editingTask) {
-      setTaskName(editingTask.name);
-      setTaskDescription(editingTask.description);
-    } else {
+    if (isOpen && !editingTask) {
       setTaskName("");
       setTaskDescription("");
+    } else if (editingTask) {
+      setTaskName(editingTask.name);
+      setTaskDescription(editingTask.description);
     }
-  }, [editingTask]);
+  }, [editingTask, isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
