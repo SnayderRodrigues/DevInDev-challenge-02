@@ -1,13 +1,16 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MainSection from "./MainSection";
 
-describe("Jest", () => {
-  it("should work", () => {
-    expect(1).toBe(1);
-  });
-  it("should display elements", () => {
-    render(<MainSection />);
-    screen.debug();
-    expect(screen.getByRole("heading", { name: /tarefas/i })).toBeInTheDocument;
-  });
+test("renders the add task button", () => {
+  render(<MainSection />);
+  const buttonElement = screen.getByText(/Adicionar tarefas/i);
+  expect(buttonElement).toBeInTheDocument();
+});
+
+test("opens sidebar when add task button is clicked", () => {
+  render(<MainSection />);
+  const buttonElement = screen.getByText(/Adicionar tarefas/i);
+  fireEvent.click(buttonElement);
+  const sidebarAction = screen.getByText(/Criar nova tarefa/i);
+  expect(sidebarAction).toBeInTheDocument();
 });
