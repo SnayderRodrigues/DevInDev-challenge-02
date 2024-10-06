@@ -1,11 +1,11 @@
-import React from 'react'
+import Saved from "../assets/Saved.svg";
 
-const SavedTaskAnimation = () => {
+const SavedTaskAnimation = ({ show }) => {
   return (
-    <div className="saved-task-animation">
-      <img src="./assets/Close.svg" alt="" />
+    <div className={`saved-task-animation ${show ? "on" : ""}`}>
+      <img src={Saved} alt="" />
     </div>
   );
-}
+};
 
-export default SavedTaskAnimation
+export default SavedTaskAnimation;

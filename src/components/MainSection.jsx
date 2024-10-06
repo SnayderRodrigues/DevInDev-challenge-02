@@ -9,6 +9,8 @@ const MainSection = () => {
   const [taskAction, setTaskAction] = useState("");
   const [tasks, setTasks] = useState([]);
   const [editingTaskIndex, setEditingTaskIndex] = useState(null);
+  const [showSavedAnimation, setShowSavedAnimation] = useState(false);
+
 
   const handleOpenSidebar = () => {
     setOpenSidebar(true);
@@ -34,7 +36,13 @@ const MainSection = () => {
       setTasks((prevTasks) => [...prevTasks, taskWithCheck]);
     }
     handleCloseSidebar();
+
+    setShowSavedAnimation(true);
+    setTimeout(() => {
+      setShowSavedAnimation(false);
+    }, 1500);
   };
+
 
   const handleCloseSidebar = () => {
     setOpenSidebar(false);
@@ -112,7 +120,7 @@ const MainSection = () => {
         onClose={handleCloseSidebar}
         onSaveTask={handleSaveTask}
       />
-      <SavedTaskAnimation />
+      <SavedTaskAnimation show={showSavedAnimation} />
       <DropShadow isOpen={openSidebar} onClose={handleCloseSidebar} />
     </main>
   );
