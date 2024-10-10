@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import SavedTaskAnimation from "./SavedTaskAnimation";
 import DropShadow from "./DropShadow";
@@ -11,6 +11,16 @@ const MainSection = () => {
   const [editingTaskIndex, setEditingTaskIndex] = useState(null);
   const [showSavedAnimation, setShowSavedAnimation] = useState(false);
 
+  useEffect(() => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    setTasks(savedTasks);
+  }, []);
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   const handleOpenSidebar = () => {
     setOpenSidebar(true);
@@ -42,7 +52,6 @@ const MainSection = () => {
       setShowSavedAnimation(false);
     }, 1500);
   };
-
 
   const handleCloseSidebar = () => {
     setOpenSidebar(false);
